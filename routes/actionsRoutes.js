@@ -32,6 +32,15 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-router
+router.post('/', async (req, res) => {
+    const postItem = req.body
+    try {
+        const item = await Db.insert(postItem)
+        res.status(200).json(item)
+    }
+    catch {
+        res.status(500).json({ "error" : "Error in adding item"})
+    }
+})
 
 module.exports = router;

@@ -34,7 +34,11 @@ router.get('/:id', async (req, res) => {
 
 
 router.post('/', async (req, res) => {
-    const postItem = req.body
+    const postItem = req.body;
+    const { name, description } = req.body;
+    if (!name || !description) {
+        res.status(400).json({ "error" : "Make sure to include a project name and description"})
+    }
     try {
         const item = await Db.insert(postItem)
         res.status(200).json(item)
@@ -90,7 +94,6 @@ router.get('/projectActions/:id', async (req, res) => {
          }    
     }
     catch {
-        console.log(actionsById)
         res.status(500).json({ "error": "error in retrieving project actions" })
     }
 })

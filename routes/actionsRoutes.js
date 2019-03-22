@@ -43,4 +43,20 @@ router.post('/', async (req, res) => {
     }
 })
 
+router.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const deleted =  await Db.remove(id)
+        if (deleted) {
+            res.status(200).json(deleted)
+        }
+        else {
+            res.status(404).json({ "error" : "item not found"})
+        }
+    }
+    catch {
+        res.status(500).json({ "error": "error in deleting item"})
+    }
+})
+
 module.exports = router;

@@ -82,9 +82,15 @@ router.get('/projectActions/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const actionsById = await Db.getProjectActions(id)
-        res.status(200).json(actionsById);
+         if (actionsById.length > 0) {
+            res.status(200).json(actionsById);
+         }
+         else {
+             res.status(404).json({ "error" : "Actions not found for this project" })
+         }    
     }
     catch {
+        console.log(actionsById)
         res.status(500).json({ "error": "error in retrieving project actions" })
     }
 })

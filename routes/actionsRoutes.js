@@ -59,4 +59,22 @@ router.delete('/:id', async (req, res) => {
     }
 })
 
+router.put('/:id', async (req, res) => {
+    const { id } = req.params;
+    const item = req.body;
+    try {
+        const updated = await Db.update(id, item)
+        if (updated) {
+            res.status(200).json(updated)
+        }
+        else {
+            res.status(404).json({ "error": "item could not be updated"})
+        }
+    }
+    catch {
+        res.status(500).json({ "error": "error in updating item" })
+
+    }
+})
+
 module.exports = router;

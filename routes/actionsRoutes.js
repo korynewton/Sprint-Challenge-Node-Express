@@ -34,6 +34,10 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
     const postItem = req.body
+    const { notes, description, project_id } = req.body;
+    if (!notes || !description || !project_id) {
+        return res.status(400).json({ "error" : "Make sure to include the action project ID, notes and description"})
+    }
     try {
         const item = await Db.insert(postItem)
         res.status(200).json(item)

@@ -37,7 +37,7 @@ router.post('/', async (req, res) => {
     const postItem = req.body;
     const { name, description } = req.body;
     if (!name || !description) {
-        res.status(400).json({ "error" : "Make sure to include a project name and description"})
+        return res.status(400).json({ "error" : "Make sure to include a project name and description"})
     }
     try {
         const item = await Db.insert(postItem)
